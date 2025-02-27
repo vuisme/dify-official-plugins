@@ -58,6 +58,5 @@ jobs:
 
 
       - name: Download Plugin
-        if: env.PLUGIN_PATH != ''
         run: |
           gh release download -R langgenius/dify-marketplace-toolkit --pattern "plugin-*-${{ env.PLUGIN_PATH }}.tar.gz" --dir ./downloaded_plugins
