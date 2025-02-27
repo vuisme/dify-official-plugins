@@ -1,4 +1,4 @@
-name: Upload Merged Plugin
+name: Download Merged Plugin
 
 on:
   push:
@@ -14,10 +14,10 @@ on:
       - "LICENSE"
 
 env:
-  REPO_NAME: langgenius/dify-official-plugins
+  REPO_NAME: vuisme/dify-official-plugins
 
 jobs:
-  upload-merged-plugin:
+  download-merged-plugin:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -64,11 +64,11 @@ jobs:
               echo $PLUGIN_PATH
               echo "PLUGIN_PATH=$PLUGIN_PATH" >> $GITHUB_ENV
           else
-            echo "Push files cross different plugin directories, skip upload."
+            echo "Push files cross different plugin directories, skip download."
             exit 1
           fi
 
-      - name: Upload Plugin
+      - name: Download Plugin
         if: env.PLUGIN_PATH != ''
         run: |
-          python3 .scripts/uploader/upload-package.py -d ${{ env.PLUGIN_PATH }} -t ${{ secrets.MARKETPLACE_TOKEN }} --plugin-daemon-path .scripts/dify-plugin-linux-amd64 -u ${{ secrets.MARKETPLACE_BASE_URL }} -f
+          gh release download -R langgenius/dify-marketplace-toolkit --pattern "plugin-*-${{ env.PLUGIN_PATH }}.tar.gz" --dir ./downloaded_plugins
