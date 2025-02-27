@@ -56,22 +56,6 @@ jobs:
           echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
           echo "CHANGED_FILES=$CHANGED_FILES"
 
-      - name: Validate Plugin Path
-        env:
-          PR_FILES: ${{ env.CHANGED_FILES }}
-        run: |
-          if [[ $PR_FILES == "[]" ]]; then
-            echo "No files changed, skipping validation."
-            exit 0
-          fi
-      
-          if PLUGIN_PATH=$(python3 .scripts/validator/check-prefix.py); then
-            echo $PLUGIN_PATH
-            echo "PLUGIN_PATH=$PLUGIN_PATH" >> $GITHUB_ENV
-          else
-            echo "Push files cross different plugin directories, skip download."
-            exit 1
-          fi
 
       - name: Download Plugin
         if: env.PLUGIN_PATH != ''
