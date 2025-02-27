@@ -58,5 +58,7 @@ jobs:
 
 
       - name: Download Plugin
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download -R langgenius/dify-marketplace-toolkit --pattern "plugin-*-${{ env.PLUGIN_PATH }}.tar.gz" --dir ./downloaded_plugins
