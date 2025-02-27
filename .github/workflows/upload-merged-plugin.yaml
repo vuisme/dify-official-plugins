@@ -34,7 +34,7 @@ jobs:
       
       - name: Download Plugin Daemon
         env:
-          GH_TOKEN: ${{ secrets.ORG_SCOPE_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download -R langgenius/dify-plugin-daemon --pattern "dify-plugin-linux-amd64" --dir .scripts
           chmod +x .scripts/dify-plugin-linux-amd64
