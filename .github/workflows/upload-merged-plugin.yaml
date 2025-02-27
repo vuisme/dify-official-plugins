@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone Marketplace Toolkit
         env:
-          GH_TOKEN: ${{ secrets.ORG_SCOPE_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh repo clone langgenius/dify-marketplace-toolkit -- .scripts/
       
